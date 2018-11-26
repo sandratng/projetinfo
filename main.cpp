@@ -2,7 +2,7 @@
 
 void afficherMenu()
 {
-    std::cout << "========== Menu =========="  << std::endl << std::endl
+    std::cout << std::endl << "========== Menu =========="  << std::endl << std::endl
               << "1/ Creer une scene" << std::endl
               << "2/ Quitter" << std::endl ;
 }
