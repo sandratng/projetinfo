@@ -1,4 +1,15 @@
 # depslib dependency file v1.0
-1543230975 source:c:\users\sandr\desktop\cours\informatique\projet info s3\main.cpp
+1543231697 source:c:\users\sandr\desktop\cours\informatique\projet info s3\main.cpp
+	"svgfile.h"
 	<iostream>
+
+1543231442 c:\users\sandr\desktop\cours\informatique\projet info s3\svgfile.h
+	<string>
+	<fstream>
+	<set>
+
+1543231442 source:c:\users\sandr\desktop\cours\informatique\projet info s3\svgfile.cpp
+	"svgfile.h"
+	<iostream>
+	<sstream>
 
