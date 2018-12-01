@@ -32,9 +32,50 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="bonhomme.cpp" />
+		<Unit filename="bonhomme.h" />
+		<Unit filename="cercle.cpp" />
+		<Unit filename="cercle.h" />
+		<Unit filename="ciel.cpp" />
+		<Unit filename="ciel.h" />
+		<Unit filename="coords.cpp" />
+		<Unit filename="coords.h" />
+		<Unit filename="couleur.cpp" />
+		<Unit filename="couleur.h" />
+		<Unit filename="disque.cpp" />
+		<Unit filename="disque.h" />
+		<Unit filename="ellipse.cpp" />
+		<Unit filename="ellipse.h" />
+		<Unit filename="foret.cpp" />
+		<Unit filename="foret.h" />
+		<Unit filename="header.h" />
+		<Unit filename="hexagone.cpp" />
+		<Unit filename="hexagone.h" />
+		<Unit filename="ligne.cpp" />
+		<Unit filename="ligne.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="neige.cpp" />
+		<Unit filename="neige.h" />
+		<Unit filename="nuage.cpp" />
+		<Unit filename="nuage.h" />
+		<Unit filename="pingouin.cpp" />
+		<Unit filename="pingouin.h" />
+		<Unit filename="quadri.cpp" />
+		<Unit filename="quadri.h" />
+		<Unit filename="rectangle.cpp" />
+		<Unit filename="rectangle.h" />
+		<Unit filename="sapin.cpp" />
+		<Unit filename="sapin.h" />
+		<Unit filename="scene.cpp" />
+		<Unit filename="scene.h" />
+		<Unit filename="sol.cpp" />
+		<Unit filename="sol.h" />
 		<Unit filename="svgfile.cpp" />
 		<Unit filename="svgfile.h" />
+		<Unit filename="triangle.cpp" />
+		<Unit filename="triangle.h" />
+		<Unit filename="util.cpp" />
+		<Unit filename="util.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

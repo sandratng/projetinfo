@@ -41,9 +41,6 @@ Svgfile::Svgfile(std::string _filename, int _width, int _height) :
 
 Svgfile::~Svgfile()
 {
-    // Writing the gradients into the SVG file
-    m_ostrm << svgBallGradients;
-
     // Writing the ending into the SVG file
     m_ostrm << svgEnding;
 
@@ -68,9 +65,102 @@ void Svgfile::addDisk(double x, double y, double r, std::string color)
             << attrib("cx", x)
             << attrib("cy", y)
             << attrib("r",  r)
-            << attrib("fill", fillBallColor(color) )
+            << attrib("fill", color )
             << "/>\n";
 }
+
+void Svgfile::addCircle(double x, double y, double r, double ep, std::string color)
+{
+    m_ostrm << "<circle "
+            << attrib("cx", x)
+            << attrib("cy", y)
+            << attrib("r",  r)
+            << attrib("fill", "none")
+            << attrib("stroke", color )
+            << attrib("stroke-width", ep )
+            << "/>\n";
+}
+
+
+
+void Svgfile::addEllipse(double x, double y, double rx, double ry, std::string color)
+{
+    m_ostrm << "<ellipse "
+            << attrib("cx", x)
+            << attrib("cy", y)
+            << attrib("rx",  rx)
+            << attrib("ry",  ry)
+            << attrib("fill", color)
+            << "/>\n";
+}
+
+void Svgfile::addRect(double x, double y, double w, double h, std::string color)
+{
+    m_ostrm << "<rect "
+            << attrib("x", x)
+            << attrib("y", y)
+            << attrib("width",  w)
+            << attrib("height",  h)
+            << attrib("fill", color )
+            << "/>\n";
+}
+
+
+
+void Svgfile::addTriangle(double x1, double y1, double x2, double y2,
+                          double x3, double y3, std::string colorFill,
+                          double thickness, std::string colorStroke)
+{
+
+    m_ostrm << "<polygon points=\" "
+            << x1 << "," << y1 << " "
+            << x2 << "," << y2 << " "
+            << x3 << "," << y3
+            << "\" style=\"fill:" << colorFill
+            << ";stroke:" << colorStroke
+            << ";stroke-width:" << thickness
+            << "\" />\n";
+}
+
+
+void Svgfile::addTriangle(double x1, double y1, double x2, double y2,
+                          double x3, double y3, std::string colorFill)
+{
+    m_ostrm << "<polygon points=\" "
+            << x1 << "," << y1 << " "
+            << x2 << "," << y2 << " "
+            << x3 << "," << y3
+            << "\" style=\"fill:" << colorFill
+            << "\" />\n";
+}
+
+void Svgfile::addQuadri(double x1, double y1, double x2, double y2,
+                          double x3, double y3,double x4, double y4, std::string colorFill)
+{
+    m_ostrm << "<polygon points=\" "
+            << x1 << "," << y1 << " "
+            << x2 << "," << y2 << " "
+            << x3 << "," << y3 << " "
+            << x4 << "," << y4
+            << "\" style=\"fill:" << colorFill
+            << "\" />\n";
+}
+
+
+void Svgfile::addHexa(double x1, double y1, double x2, double y2,
+                          double x3, double y3,double x4, double y4,double x5, double y5,double x6, double y6, std::string colorFill)
+{
+    m_ostrm << "<polygon points=\" "
+            << x1 << "," << y1 << " "
+            << x2 << "," << y2 << " "
+            << x3 << "," << y3 << " "
+            << x4 << "," << y4 << " "
+            << x5 << "," << y5 << " "
+            << x6 << "," << y6
+            << "\" style=\"fill:" << colorFill
+            << "\" />\n";
+}
+
 
 void Svgfile::addLine(double x1, double y1, double x2, double y2, std::string color)
 {
@@ -127,62 +217,9 @@ void Svgfile::addGrid(double span, bool numbering, std::string color)
     }
 }
 
-std::string makeRGB(int r, int g, int b)
+std::string Svgfile::makeRGB(int r, int g, int b)
 {
     std::ostringstream oss;
     oss << "rgb(" << r << "," << g << "," << b << ")";
     return oss.str();
 }
-
-std::string fillBallColor(std::string col)
-{
-    if ( col.size()>4 && col.substr(col.size()-4) == "ball" )
-        col =   "url(#" + col + ")";
-
-    return col;
-}
-
-/// Effets "Boule en relief"
-/// Horrible bricolage : ces données devraient soit être dans un fichier auxiliaire
-/// ( c'était l'approche initiale qui marchait bien sur Firefox mais pas sur les autres )
-/// soit générées dynamiquement en fonction des besoins (couleurs paramétrables...)
-/// On fera mieux l'an prochain !
-extern const std::string svgBallGradients =
-"  \n\n<defs>\n"
-"    <radialGradient id=\"redball\" cx=\"30%\" cy=\"30%\" r=\"100%\" fx=\"30%\" fy=\"30%\">\n"
-"      <stop offset=\"0%\" style=\"stop-color:rgb(255,250,250)\" />\n"
-"      <stop offset=\"3%\" style=\"stop-color:rgb(255,250,250)\" />\n"
-"      <stop offset=\"7%\" style=\"stop-color:rgb(255,160,160)\" />\n"
-"      <stop offset=\"70%\" style=\"stop-color:rgb(255,0,0)\" />\n"
-"      <stop offset=\"100%\" style=\"stop-color:rgb(255,0,0)\" />\n"
-"    </radialGradient>\n"
-"    <radialGradient id=\"greenball\" cx=\"30%\" cy=\"30%\" r=\"100%\" fx=\"30%\" fy=\"30%\">\n"
-"      <stop offset=\"0%\" style=\"stop-color:rgb(250,255,250)\" />\n"
-"      <stop offset=\"3%\" style=\"stop-color:rgb(250,255,250)\" />\n"
-"      <stop offset=\"7%\" style=\"stop-color:rgb(160,255,160)\" />\n"
-"      <stop offset=\"70%\" style=\"stop-color:rgb(0,255,0)\" />\n"
-"      <stop offset=\"100%\" style=\"stop-color:rgb(0,255,0)\" />\n"
-"    </radialGradient>\n"
-"    <radialGradient id=\"blueball\" cx=\"30%\" cy=\"30%\" r=\"100%\" fx=\"30%\" fy=\"30%\">\n"
-"      <stop offset=\"0%\" style=\"stop-color:rgb(250,250,255)\" />\n"
-"      <stop offset=\"3%\" style=\"stop-color:rgb(250,250,255)\" />\n"
-"      <stop offset=\"7%\" style=\"stop-color:rgb(160,160,255)\" />\n"
-"      <stop offset=\"70%\" style=\"stop-color:rgb(0,0,255)\" />\n"
-"      <stop offset=\"100%\" style=\"stop-color:rgb(0,255,0)\" />\n"
-"    </radialGradient>\n"
-"    <radialGradient id=\"yellowball\" cx=\"30%\" cy=\"30%\" r=\"100%\" fx=\"30%\" fy=\"30%\">\n"
-"      <stop offset=\"0%\" style=\"stop-color:rgb(255,255,250)\" />\n"
-"      <stop offset=\"3%\" style=\"stop-color:rgb(255,255,250)\" />\n"
-"      <stop offset=\"7%\" style=\"stop-color:rgb(255,255,160)\" />\n"
-"      <stop offset=\"70%\" style=\"stop-color:rgb(255,255,0)\" />\n"
-"      <stop offset=\"100%\" style=\"stop-color:rgb(255,255,0)\" />\n"
-"    </radialGradient>\n"
-"    <radialGradient id=\"greyball\" cx=\"30%\" cy=\"30%\" r=\"100%\" fx=\"30%\" fy=\"30%\">\n"
-"      <stop offset=\"0%\" style=\"stop-color:rgb(250,250,250)\" />\n"
-"      <stop offset=\"3%\" style=\"stop-color:rgb(250,250,250)\" />\n"
-"      <stop offset=\"7%\" style=\"stop-color:rgb(160,160,160)\" />\n"
-"      <stop offset=\"70%\" style=\"stop-color:rgb(100,100,100)\" />\n"
-"      <stop offset=\"100%\" style=\"stop-color:rgb(100,100,100)\" />\n"
-"    </radialGradient>\n"
-"  </defs>\n";
-
